@@ -18,7 +18,11 @@ def mostrar_menu():
 
 
 def agregar_tarea(tareas):
-    titulo = input("Título: ")
+    titulo = input("Título: ").strip()
+    if not titulo:
+        print("El título no puede estar vacío.")
+        return
+
     tareas.append({"titulo": titulo, "completada": False})
     print("Tarea agregada.")
 
