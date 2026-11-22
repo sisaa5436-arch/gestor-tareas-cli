@@ -1,6 +1,9 @@
 """Gestor de tareas por consola."""
 
-AYUDA_MENU = "Escribe el número de una opción y presiona Enter."
+AYUDA_MENU = (
+    "Escribe el número de una opción y presiona Enter. "
+    "Para completar o eliminar, usa el número del listado."
+)
 
 
 def mostrar_menu():
@@ -9,7 +12,8 @@ def mostrar_menu():
 
     print("1. Agregar tarea")
     print("2. Listar tareas")
-
+    print("3. Completar tarea")
+    print("4. Eliminar tarea")
     print("0. Salir")
 
 
@@ -29,6 +33,38 @@ def listar_tareas(tareas):
         print(f'{numero}. [{estado}] {tarea["titulo"]}')
 
 
+def pedir_indice(tareas):
+    """Devuelve el índice de la tarea seleccionada, si existe."""
+    if not tareas:
+        print("No hay tareas.")
+        return None
+
+    try:
+        numero = int(input("Número de tarea: "))
+    except ValueError:
+        print("Ingresa un número entero.")
+        return None
+
+    if not 1 <= numero <= len(tareas):
+        print("No existe una tarea con ese número.")
+        return None
+    return numero - 1
+
+
+def completar_tarea(tareas):
+    indice = pedir_indice(tareas)
+    if indice is not None:
+        tareas[indice]["completada"] = True
+        print("Tarea completada.")
+
+
+def eliminar_tarea(tareas):
+    indice = pedir_indice(tareas)
+    if indice is not None:
+        tareas.pop(indice)
+        print("Tarea eliminada.")
+
+
 def main():
     tareas = []
     while True:
@@ -41,6 +77,10 @@ def main():
             agregar_tarea(tareas)
         elif opcion == "2":
             listar_tareas(tareas)
+        elif opcion == "3":
+            completar_tarea(tareas)
+        elif opcion == "4":
+            eliminar_tarea(tareas)
         else:
             print("Opción no válida.")
 
