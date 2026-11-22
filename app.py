@@ -1,6 +1,6 @@
 """Gestor de tareas por consola."""
 
-AYUDA_MENU = "Elige una opción del menú."
+AYUDA_MENU = "Escribe el número de una opción y presiona Enter."
 
 
 def mostrar_menu():
